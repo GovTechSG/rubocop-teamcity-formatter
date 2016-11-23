@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
   # s.required_ruby_version = '>~2.3.0'
 
   s.add_development_dependency 'rake', '~> 10.0'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '~> 0.42'
   s.add_development_dependency 'rspec', '~> 3.4'
 end

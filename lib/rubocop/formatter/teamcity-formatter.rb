@@ -1,13 +1,12 @@
 # rubocop:disable Style/FileName
+
+require 'rubocop'
+
 module RuboCop
   module Formatter
     #
-    class TeamCityFormatter < BaseFormatter
+    class TeamCityFormatter < RuboCop::Formatter::BaseFormatter
       COPS = Cop::Cop.all
-
-      def teamcity_escape(message)
-        message.tr('\\', '|')
-      end
 
       def started(_)
         output.puts(
@@ -23,7 +22,7 @@ module RuboCop
           offences.select { |off| off.cop_name == cop.cop_name }.each do |off|
             output.puts "##teamcity[testStarted name='#{file}']"
             output.puts "##teamcity[testFailed name='#{file}' message=" \
-              "'#{off.location.to_s.tr("#{Dir.pwd}/", '')}: #{off.message}']"
+              "'#{off.location.to_s.gsub("#{Dir.pwd}/", '')}: #{off.message}']"
             output.puts "##teamcity[testFinished name='#{file}']"
           end
         end
@@ -35,6 +34,12 @@ module RuboCop
             '##teamcity[testSuiteFinished name=\'Rubocop\']'
           )
         )
+      end
+
+      private
+
+      def teamcity_escape(message)
+        message.tr('\\', '|')
       end
     end
   end

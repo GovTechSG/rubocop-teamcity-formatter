@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |s|
   s.name          = 'rubocop-teamcity-formatter'
   s.version       = '0.0.2'
@@ -10,9 +12,9 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.license       = 'MIT'
 
-  # s.required_ruby_version = '>~2.3.0'
+  s.required_ruby_version = '~> 2.3'
 
-  s.add_development_dependency 'rake',  '~> 12.3.3'
-  s.add_development_dependency 'rubocop', '~> 0.49'
+  s.add_development_dependency 'rake', '~> 12.3.3'
   s.add_development_dependency 'rspec', '~> 3.4'
+  s.add_development_dependency 'rubocop', '~> 0.49'
 end

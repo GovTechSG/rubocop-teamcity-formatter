@@ -19,5 +19,15 @@ TEAMCITY_FMT_PATH="`bundle show rubocop-teamcity-formatter`/lib/rubocop/formatte
 bundle exec rubocop -r ${TEAMCITY_FMT_PATH} --format RuboCop::Formatter::TeamCityFormatter
 ```
 
+## Development
+
+```bash
+# Running unit tests
+bundle exec rspec
+
+# Building the gem
+gem build rubocop-teamcity-formatter.gemspec 
+```
 ## Contributing
+
 See [CONTRIBUTING.md](https://github.com/govtechsg/rubocop-teamcity-formatter/blob/master/CONTRIBUTING.md) for how to send issues and pull requests

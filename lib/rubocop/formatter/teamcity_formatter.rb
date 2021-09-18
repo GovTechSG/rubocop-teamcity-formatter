@@ -1,10 +1,11 @@
-# rubocop:disable Style/FileName
+# frozen_string_literal: true
+
+# rubocop:disable Style/Documentation, Metrics/AbcSize
 
 require 'rubocop'
 
 module RuboCop
   module Formatter
-    #
     class TeamCityFormatter < RuboCop::Formatter::BaseFormatter
       COPS = Cop::Cop.all
 
@@ -16,7 +17,6 @@ module RuboCop
         )
       end
 
-      # rubocop:disable Metrics/AbcSize
       def file_finished(file, offences)
         COPS.each do |cop|
           offences.select { |off| off.cop_name == cop.cop_name }.each do |off|
@@ -44,3 +44,5 @@ module RuboCop
     end
   end
 end
+
+# rubocop:enable Style/Documentation, Metrics/AbcSize

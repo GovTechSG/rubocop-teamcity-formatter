@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/Documentation, Metrics/AbcSize
-
 require 'rubocop'
 
 module RuboCop
   module Formatter
+    # Rubo Cop Formatter
     class TeamCityFormatter < RuboCop::Formatter::BaseFormatter
       COPS = Cop::Cop.all
 
@@ -44,5 +43,3 @@ module RuboCop
     end
   end
 end
-
-# rubocop:enable Style/Documentation, Metrics/AbcSize

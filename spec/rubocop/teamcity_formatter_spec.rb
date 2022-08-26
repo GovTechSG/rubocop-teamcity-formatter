@@ -41,7 +41,10 @@ RSpec.describe RuboCop::Formatter::TeamCityFormatter do
                                "#{Dir.pwd}/foo.rb:2:1"),
         Struct::TestStruct.new('Lint/AmbiguousOperator',
                                'cop1 error2',
-                               "#{Dir.pwd}/foo.rb:1:2")
+                               "#{Dir.pwd}/foo.rb:1:2"),
+        Struct::TestStruct.new('Lint/AmbiguousOperator',
+                               'don\'t do this [123,45]',
+                               "#{Dir.pwd}/foo.rb:2:3")
       ]
     end
 
@@ -58,6 +61,10 @@ RSpec.describe RuboCop::Formatter::TeamCityFormatter do
         "##teamcity[testStarted name='somefile.txt']\n" \
         "##teamcity[testFailed name='somefile.txt' " \
         "message='foo.rb:1:2: cop1 error2']\n" \
+        "##teamcity[testFinished name='somefile.txt']\n" \
+        "##teamcity[testStarted name='somefile.txt']\n" \
+        "##teamcity[testFailed name='somefile.txt' " \
+        "message='foo.rb:2:3: don|'t do this |[123,45|]']\n" \
         "##teamcity[testFinished name='somefile.txt']\n"
 
       expect do

@@ -11,9 +11,7 @@ module RuboCop
 
       def started(_)
         output.puts(
-          teamcity_escape(
-            '##teamcity[testSuiteStarted name=\'Rubocop\']'
-          )
+          '##teamcity[testSuiteStarted name=\'Rubocop\']'
         )
       end
 
@@ -22,7 +20,7 @@ module RuboCop
           offences.select { |off| off.cop_name == cop.cop_name }.each do |off|
             output.puts "##teamcity[testStarted name='#{file}']"
             output.puts "##teamcity[testFailed name='#{file}' message=" \
-              "'#{off.location.to_s.gsub("#{Dir.pwd}/", '')}: #{off.message}']"
+              "'#{off.location.to_s.gsub("#{Dir.pwd}/", '')}: #{teamcity_escape(off.message)}']"
             output.puts "##teamcity[testFinished name='#{file}']"
           end
         end
@@ -30,16 +28,18 @@ module RuboCop
 
       def finished(_)
         output.puts(
-          teamcity_escape(
-            '##teamcity[testSuiteFinished name=\'Rubocop\']'
-          )
+          '##teamcity[testSuiteFinished name=\'Rubocop\']'
         )
       end
 
       private
 
       def teamcity_escape(message)
-        message.tr('\\', '|')
+        # https://www.jetbrains.com/help/teamcity/service-messages.html#Escaped+Values
+        message.gsub('|', '||')
+               .gsub(/['\[\]]/, '|\0')
+               .gsub('\n', '|n')
+               .gsub('\r', '|r')
       end
     end
   end
